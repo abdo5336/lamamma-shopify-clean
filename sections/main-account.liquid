@@ -1,0 +1,55 @@
+<section class="customer-page" id="customer-account">
+  <div class="container customer-page__container">
+    <div class="account-header">
+      <h1 class="customer-page__title">My Account</h1>
+      <a class="btn btn--outline btn--small" href="{{ routes.account_logout_url }}">Sign Out</a>
+    </div>
+
+    <div class="account-grid">
+      <div class="account-orders">
+        <h2 class="account-section-title">Order History</h2>
+        {%- if customer.orders.size == 0 -%}
+          <p class="account-empty">You haven't placed any orders yet.</p>
+          <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">Start Shopping</a>
+        {%- else -%}
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for order in customer.orders -%}
+                <tr>
+                  <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                  <td>{{ order.created_at | date: "%B %d, %Y" }}</td>
+                  <td>{{ order.financial_status | capitalize }}</td>
+                  <td>{{ order.total_price | money }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- endif -%}
+      </div>
+
+      <div class="account-details">
+        <h2 class="account-section-title">Account Details</h2>
+        <address>
+          {{ customer.default_address | format_address }}
+        </address>
+        <a class="btn btn--outline btn--small" href="{{ routes.account_addresses_url }}">Manage Addresses</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Account",
+  "tag": "section",
+  "class": "section-customer-account"
+}
+{% endschema %}

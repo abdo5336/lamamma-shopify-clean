@@ -1,0 +1,71 @@
+<section class="faq-section" id="faq-{{ section.id }}">
+  <div class="container faq-section__container">
+    <div class="faq-section__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="section-heading">{{ section.settings.heading | default: 'Frequently Asked Questions' | escape }}</h2>
+    </div>
+    <div class="faq-list" id="faq-list-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <div class="faq-item" {{ block.shopify_attributes }}>
+          <button
+            class="faq-item__trigger"
+            aria-expanded="false"
+            aria-controls="faq-answer-{{ section.id }}-{{ forloop.index }}"
+          >
+            <span class="faq-item__question">{{ block.settings.question | escape }}</span>
+            <span class="faq-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
+                <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__answer" id="faq-answer-{{ section.id }}-{{ forloop.index }}" hidden>
+            <div class="faq-item__answer-inner rte">{{ block.settings.answer }}</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+      <div class="faq-section__footer">
+        <a class="btn btn--outline" href="{{ section.settings.cta_url }}">{{ section.settings.cta_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Preview",
+  "tag": "section",
+  "class": "section-faq",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Got Questions?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "text", "id": "cta_label", "label": "View all FAQ label", "default": "View All FAQs" },
+    { "type": "url", "id": "cta_url", "label": "View all FAQ URL" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How do I place an order?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>You can order directly through our store, or contact us via WhatsApp for a private order experience. We ship worldwide.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Preview",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "Where do you ship?", "answer": "<p>We ship worldwide. Orders to Morocco and the Middle East typically arrive within 3–5 business days. International shipping is 7–14 business days.</p>" } },
+        { "type": "faq_item", "settings": { "question": "Are the sets limited edition?", "answer": "<p>Yes. Our Signature sets are produced in small, numbered batches. Once a batch sells out, it may not return. We recommend securing yours early.</p>" } },
+        { "type": "faq_item", "settings": { "question": "Can I order via WhatsApp?", "answer": "<p>Absolutely. WhatsApp ordering is one of our preferred channels. Message us for a private, assisted buying experience.</p>" } },
+        { "type": "faq_item", "settings": { "question": "What is included in a Ritual Set?", "answer": "<p>Each Signature Ritual Set includes a premium rolling tray, a precision grinder, a luxury lighter, a leather pouch, and storage solutions — all curated as a cohesive collection.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

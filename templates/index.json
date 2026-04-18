@@ -1,0 +1,163 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "La Mamma's Signature",
+        "heading": "<p>From the Mountains<br>of Morocco<br>to the World</p>",
+        "subheading": "Curated luxury smoking accessories. Crafted for those who appreciate ritual.",
+        "cta_primary_label": "Shop Collection",
+        "whatsapp_cta": true,
+        "whatsapp_label": "Order via WhatsApp",
+        "scroll_hint": true
+      }
+    },
+    "marquee": {
+      "type": "marquee-text",
+      "settings": {
+        "rows": 3
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "settings": {
+        "eyebrow": "Flagship Collection",
+        "product": "la-mammas-signature-classic-bundle"
+      }
+    },
+    "bundles": {
+      "type": "bundles-highlight",
+      "settings": {
+        "eyebrow": "Signature Sets",
+        "heading": "Curated Ritual Bundles",
+        "subheading": "Every object chosen with intention. Every set a statement.",
+        "product_limit": 4,
+        "cta_label": "View All Bundles",
+        "collection": "bundles"
+      }
+    },
+    "collection_grid": {
+      "type": "collection-grid",
+      "settings": {
+        "eyebrow": "The Catalogue",
+        "heading": "Shop by Collection"
+      },
+      "blocks": {
+        "block_1": { "type": "collection_tile", "settings": { "title": "Signature Bundles", "icon": "◈" } },
+        "block_2": { "type": "collection_tile", "settings": { "title": "Rolling Trays", "icon": "▭" } },
+        "block_3": { "type": "collection_tile", "settings": { "title": "Grinders", "icon": "⊙" } },
+        "block_4": { "type": "collection_tile", "settings": { "title": "Lighters", "icon": "◇" } },
+        "block_5": { "type": "collection_tile", "settings": { "title": "Pouches & Storage", "icon": "◫" } },
+        "block_6": { "type": "collection_tile", "settings": { "title": "Accessories", "icon": "✦" } }
+      },
+      "blocks_order": ["block_1", "block_2", "block_3", "block_4", "block_5", "block_6"]
+    },
+    "brand_story": {
+      "type": "brand-story",
+      "settings": {
+        "eyebrow": "Our Heritage",
+        "heading": "<p>Born from Moroccan Tradition.<br>Refined for the Modern World.</p>",
+        "body": "<p>La Mamma's Signature was born at the crossroads of ancient Moroccan craftsmanship and contemporary luxury. Each piece in our collection is a marriage of material and meaning — designed not merely to be used, but to be owned, displayed, and passed on.</p>",
+        "image_caption": "Handcrafted in Morocco",
+        "cta_label": "Our Story"
+      },
+      "blocks": {
+        "pillar_1": { "type": "pillar", "settings": { "icon": "✦", "title": "Heritage", "text": "Rooted in Moroccan tradition, elevated to global luxury." } },
+        "pillar_2": { "type": "pillar", "settings": { "icon": "◈", "title": "Craftsmanship", "text": "Premium materials. Meticulous construction. Zero compromise." } },
+        "pillar_3": { "type": "pillar", "settings": { "icon": "◇", "title": "Collectible", "text": "Limited runs. Numbered sets. Objects that hold their value." } }
+      },
+      "blocks_order": ["pillar_1", "pillar_2", "pillar_3"]
+    },
+    "product_showcase": {
+      "type": "product-object-showcase",
+      "settings": {
+        "eyebrow": "The Collection",
+        "heading": "Objects Worth Owning",
+        "product_limit": 4,
+        "cta_label": "Shop All Products"
+      }
+    },
+    "packaging": {
+      "type": "packaging-section",
+      "settings": {
+        "eyebrow": "The Details",
+        "heading": "The Unboxing Experience",
+        "body": "Every La Mamma's Signature order arrives in a custom-designed box — black matte with gold foil stamping, tissue-wrapped, and sealed with our signature wax emblem."
+      },
+      "blocks": {
+        "spec_1": { "type": "spec", "settings": { "icon": "◈", "label": "Matte black luxury box" } },
+        "spec_2": { "type": "spec", "settings": { "icon": "✦", "label": "Gold foil stamping" } },
+        "spec_3": { "type": "spec", "settings": { "icon": "◇", "label": "Signature wax seal" } },
+        "spec_4": { "type": "spec", "settings": { "icon": "▭", "label": "Tissue & ribbon wrapped" } }
+      },
+      "blocks_order": ["spec_1", "spec_2", "spec_3", "spec_4"]
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "eyebrow": "Client Testimonials",
+        "heading": "What Our Clients Say",
+        "average_rating": 5,
+        "review_count": "200+"
+      },
+      "blocks": {
+        "review_1": { "type": "review", "settings": { "rating": 5, "review_text": "Absolutely premium quality. The ritual set arrived beautifully packaged — felt like unboxing a luxury item.", "reviewer_name": "K. Mansouri", "reviewer_location": "Casablanca, Morocco", "product_purchased": "Black Signature Ritual Set" } },
+        "review_2": { "type": "review", "settings": { "rating": 5, "review_text": "Finally a brand that takes smoking accessories seriously. The tray is a piece of art on my desk.", "reviewer_name": "Y. Benali", "reviewer_location": "Paris, France", "product_purchased": "Premium Rolling Tray" } },
+        "review_3": { "type": "review", "settings": { "rating": 5, "review_text": "The packaging alone is a statement. Gifted it to a close friend — he was speechless.", "reviewer_name": "R. El Fassi", "reviewer_location": "Dubai, UAE", "product_purchased": "Signature Gift Bundle" } }
+      },
+      "blocks_order": ["review_1", "review_2", "review_3"]
+    },
+    "blog_preview": {
+      "type": "blog-preview",
+      "settings": {
+        "eyebrow": "The Journal",
+        "heading": "Stories & Rituals",
+        "post_limit": 3
+      }
+    },
+    "faq_preview": {
+      "type": "faq-preview",
+      "settings": {
+        "eyebrow": "Got Questions?",
+        "heading": "Frequently Asked Questions",
+        "cta_label": "View All FAQs"
+      },
+      "blocks": {
+        "faq_1": { "type": "faq_item", "settings": { "question": "Where do you ship?", "answer": "<p>We ship worldwide. Orders to Morocco and the Middle East typically arrive within 3–5 business days. International shipping is 7–14 business days.</p>" } },
+        "faq_2": { "type": "faq_item", "settings": { "question": "Are the sets limited edition?", "answer": "<p>Yes. Our Signature sets are produced in small, numbered batches. Once a batch sells out, it may not return.</p>" } },
+        "faq_3": { "type": "faq_item", "settings": { "question": "Can I order via WhatsApp?", "answer": "<p>Absolutely. Message us for a private, assisted buying experience.</p>" } },
+        "faq_4": { "type": "faq_item", "settings": { "question": "What is included in a Ritual Set?", "answer": "<p>Each Signature Ritual Set includes a premium rolling tray, a precision grinder, a luxury lighter, a leather pouch, and storage solutions — all curated as a cohesive collection.</p>" } }
+      },
+      "blocks_order": ["faq_1", "faq_2", "faq_3", "faq_4"]
+    },
+    "whatsapp_cta": {
+      "type": "whatsapp-cta",
+      "settings": {
+        "eyebrow": "Private Orders",
+        "heading": "Prefer a Private Order Experience?",
+        "body": "Our team is available to assist you personally via WhatsApp. Secure your set, ask questions, or request a custom configuration.",
+        "cta_label": "Request via WhatsApp",
+        "whatsapp_message": "Hello, I'd like to order from La Mamma's Signature."
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "hero",
+    "marquee",
+    "featured_product",
+    "bundles",
+    "collection_grid",
+    "brand_story",
+    "product_showcase",
+    "packaging",
+    "reviews",
+    "blog_preview",
+    "faq_preview",
+    "whatsapp_cta"
+  ]
+}

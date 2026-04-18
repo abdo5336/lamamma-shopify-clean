@@ -1,0 +1,56 @@
+<article class="article-page" id="article-{{ article.id }}" itemscope itemtype="https://schema.org/Article">
+  <div class="container">
+    <header class="article-page__header">
+      {%- if article.image -%}
+        <div class="article-page__hero-image">
+          <img
+            src="{{ article.image | image_url: width: 1200 }}"
+            alt="{{ article.image.alt | default: article.title | escape }}"
+            loading="eager"
+            width="1200"
+            itemprop="image"
+          >
+        </div>
+      {%- endif -%}
+      <div class="article-page__meta">
+        <span class="article-page__blog">{{ blog.title }}</span>
+        <time class="article-page__date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}" itemprop="datePublished">
+          {{ article.published_at | date: "%B %d, %Y" }}
+        </time>
+        {%- if article.author != blank -%}
+          <span class="article-page__author" itemprop="author">{{ article.author }}</span>
+        {%- endif -%}
+      </div>
+      <h1 class="article-page__title" itemprop="headline">{{ article.title }}</h1>
+    </header>
+
+    <div class="article-page__body rte" itemprop="articleBody">
+      {{ article.content }}
+    </div>
+
+    {%- if article.tags.size > 0 -%}
+      <div class="article-page__tags">
+        {%- for tag in article.tags -%}
+          <a class="article-page__tag" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <nav class="article-page__nav">
+      {%- if blog.previous_article -%}
+        <a class="article-page__prev" href="{{ blog.previous_article }}">&larr; Previous Article</a>
+      {%- endif -%}
+      {%- if blog.next_article -%}
+        <a class="article-page__next" href="{{ blog.next_article }}">Next Article &rarr;</a>
+      {%- endif -%}
+    </nav>
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "tag": "section",
+  "class": "section-main-article"
+}
+{% endschema %}

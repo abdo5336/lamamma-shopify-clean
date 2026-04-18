@@ -1,0 +1,80 @@
+<section class="blog-preview" id="blog-preview-{{ section.id }}">
+  <div class="container">
+    <div class="section-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <div class="section-header__row">
+        <h2 class="section-heading">{{ section.settings.heading | default: 'The Journal' | escape }}</h2>
+        {%- if section.settings.blog != blank -%}
+          <a class="section-header__link" href="{{ blogs[section.settings.blog].url }}">View All &rarr;</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="blog-preview__grid">
+      {%- assign blog_handle = section.settings.blog -%}
+      {%- if blog_handle != blank -%}
+        {%- for article in blogs[blog_handle].articles limit: section.settings.post_limit -%}
+          <article class="article-card">
+            <a class="article-card__link" href="{{ article.url }}">
+              <div class="article-card__media">
+                {%- if article.image -%}
+                  <img
+                    class="article-card__image"
+                    src="{{ article.image | image_url: width: 700 }}"
+                    alt="{{ article.image.alt | default: article.title | escape }}"
+                    loading="lazy"
+                    width="700"
+                  >
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'article-card__placeholder' }}
+                {%- endif -%}
+              </div>
+              <div class="article-card__content">
+                <div class="article-card__meta">
+                  {%- if article.tags.size > 0 -%}
+                    <span class="article-card__tag">{{ article.tags | first }}</span>
+                  {%- endif -%}
+                  <time class="article-card__date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                    {{ article.published_at | date: "%B %d, %Y" }}
+                  </time>
+                </div>
+                <h3 class="article-card__title">{{ article.title | escape }}</h3>
+                <p class="article-card__excerpt">{{ article.excerpt | default: article.content | strip_html | truncate: 120 }}</p>
+                <span class="article-card__read-more">Read More &rarr;</span>
+              </div>
+            </a>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.post_limit) -%}
+          <article class="article-card article-card--placeholder">
+            <div class="article-card__media">{{ 'image' | placeholder_svg_tag: 'article-card__placeholder' }}</div>
+            <div class="article-card__content">
+              <h3 class="article-card__title">Journal Entry {{ i }}</h3>
+              <p class="article-card__excerpt">Connect a blog in the theme editor to display your latest articles here.</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Preview",
+  "tag": "section",
+  "class": "section-blog-preview",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Journal" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stories & Rituals" },
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "range", "id": "post_limit", "min": 2, "max": 6, "step": 1, "default": 3, "label": "Posts to show" }
+  ],
+  "presets": [
+    { "name": "Blog Preview" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-grid",
+      "settings": {
+        "eyebrow": "All Collections",
+        "heading": "Shop by Collection"
+      }
+    }
+  },
+  "order": ["main"]
+}

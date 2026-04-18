@@ -1,0 +1,32 @@
+<section class="customer-page" id="customer-login">
+  <div class="container customer-page__container">
+    <h1 class="customer-page__title">Sign In</h1>
+    {%- form 'customer_login', class: 'customer-form' -%}
+      {%- if form.errors -%}
+        <div class="form-errors">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="customer[email]" id="email" autocomplete="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="customer[password]" id="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn--primary btn--full">Sign In</button>
+      <p class="customer-form__links">
+        <a href="{{ routes.account_recover_url }}">Forgot your password?</a>
+        &nbsp;·&nbsp;
+        <a href="{{ routes.account_register_url }}">Create an account</a>
+      </p>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login",
+  "tag": "section",
+  "class": "section-customer-login"
+}
+{% endschema %}

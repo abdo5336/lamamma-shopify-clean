@@ -1,0 +1,55 @@
+<section class="object-showcase" id="object-showcase-{{ section.id }}">
+  <div class="container">
+    <div class="section-header section-header--centered">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="section-heading">{{ section.settings.heading | default: 'Objects Worth Owning' | escape }}</h2>
+    </div>
+
+    <div class="object-showcase__grid">
+      {%- assign showcase_collection = collections[section.settings.collection] -%}
+      {%- if showcase_collection != blank -%}
+        {%- for product in showcase_collection.products limit: section.settings.product_limit -%}
+          {%- render 'product-card', product: product, show_badge: true -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.product_limit) -%}
+          <article class="product-card product-card--placeholder">
+            <div class="product-card__media">
+              {{ 'product-' | append: i | placeholder_svg_tag }}
+            </div>
+            <div class="product-card__info">
+              <h3 class="product-card__title">Signature Product</h3>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+      <div class="object-showcase__footer">
+        <a class="btn btn--outline" href="{{ section.settings.cta_url }}">{{ section.settings.cta_label | escape }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Object Showcase",
+  "tag": "section",
+  "class": "section-object-showcase",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Objects Worth Owning" },
+    { "type": "collection", "id": "collection", "label": "Collection to display" },
+    { "type": "range", "id": "product_limit", "min": 2, "max": 8, "step": 2, "default": 4, "label": "Products to show" },
+    { "type": "text", "id": "cta_label", "label": "CTA Label", "default": "Shop All Products" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" }
+  ],
+  "presets": [
+    { "name": "Product Object Showcase" }
+  ]
+}
+{% endschema %}

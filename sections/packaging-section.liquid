@@ -1,0 +1,66 @@
+<section class="packaging-section" id="packaging-{{ section.id }}">
+  <div class="packaging-section__inner">
+    <div class="packaging-section__content container">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="packaging-section__heading">{{ section.settings.heading | default: 'The Unboxing Experience' | escape }}</h2>
+      <p class="packaging-section__body">{{ section.settings.body | default: 'Every La Mamma\'s Signature order arrives in a custom-designed box — black matte with gold foil stamping, tissue-wrapped, and sealed with our signature wax emblem.' | escape }}</p>
+
+      <div class="packaging-section__specs">
+        {%- for block in section.blocks -%}
+          <div class="packaging-spec" {{ block.shopify_attributes }}>
+            <span class="packaging-spec__icon">{{ block.settings.icon | default: '✦' }}</span>
+            <span class="packaging-spec__label">{{ block.settings.label | escape }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="packaging-section__visual">
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="{{ section.settings.image.alt | default: 'LMS Packaging' | escape }}"
+          loading="lazy"
+          width="1200"
+        >
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Packaging Section",
+  "tag": "section",
+  "class": "section-packaging",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Details" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Unboxing Experience" },
+    { "type": "textarea", "id": "body", "label": "Body text", "default": "Every La Mamma's Signature order arrives in a custom-designed box — black matte with gold foil stamping, tissue-wrapped, and sealed with our signature wax emblem." },
+    { "type": "image_picker", "id": "image", "label": "Packaging image" }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Packaging spec",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "✦" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Matte black box" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Packaging Section",
+      "blocks": [
+        { "type": "spec", "settings": { "icon": "◈", "label": "Matte black luxury box" } },
+        { "type": "spec", "settings": { "icon": "✦", "label": "Gold foil stamping" } },
+        { "type": "spec", "settings": { "icon": "◇", "label": "Signature wax seal" } },
+        { "type": "spec", "settings": { "icon": "▭", "label": "Tissue & ribbon wrapped" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

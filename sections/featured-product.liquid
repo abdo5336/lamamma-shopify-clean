@@ -1,0 +1,124 @@
+{%- assign featured = section.settings.product -%}
+<section class="featured-product-3d" id="featured-{{ section.id }}">
+  <div class="featured-product-3d__scene">
+    <div class="featured-product-3d__glow" aria-hidden="true"></div>
+    <div class="featured-product-3d__rings" aria-hidden="true">
+      <div class="fp-ring fp-ring--1"></div>
+      <div class="fp-ring fp-ring--2"></div>
+      <div class="fp-ring fp-ring--3"></div>
+    </div>
+
+    <div class="featured-product-3d__object js-fp-object">
+      {%- if featured != blank -%}
+        {%- if featured.featured_media -%}
+          <img
+            class="featured-product-3d__image"
+            src="{{ featured.featured_media | image_url: width: 800 }}"
+            alt="{{ featured.featured_media.alt | default: featured.title | escape }}"
+            width="800"
+            loading="lazy"
+          >
+        {%- endif -%}
+      {%- else -%}
+        <div class="featured-product-3d__placeholder">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="featured-product-3d__particles" aria-hidden="true">
+      {%- for i in (1..12) -%}
+        <div class="fp-particle fp-particle--{{ i }}"></div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="featured-product-3d__info">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="featured-product-3d__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if featured != blank -%}
+      <h2 class="featured-product-3d__title">{{ featured.title | escape }}</h2>
+      {%- if featured.description != blank -%}
+        <div class="featured-product-3d__desc">{{ featured.description | strip_html | truncate: 220 }}</div>
+      {%- endif -%}
+      <div class="featured-product-3d__meta">
+        {%- if featured.metafields.custom.batch != blank -%}
+          <span class="featured-product-3d__badge">{{ featured.metafields.custom.batch }}</span>
+        {%- endif -%}
+        <span class="featured-product-3d__price">{{ featured.price | money }}</span>
+      </div>
+      <div class="featured-product-3d__actions">
+        <a class="btn btn--primary btn--large" href="{{ featured.url }}">
+          Discover the Set
+        </a>
+        <a
+          class="btn btn--whatsapp"
+          href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-' }}?text={{ 'I would like to order: ' | append: featured.title | url_encode }}"
+          target="_blank"
+          rel="noopener"
+        >
+          Order Privately
+        </a>
+      </div>
+    {%- else -%}
+      <h2 class="featured-product-3d__title">{{ section.settings.heading | default: 'The Black Signature Ritual Set' }}</h2>
+      <div class="featured-product-3d__desc">{{ section.settings.description | default: 'A curated collection of premium smoking accessories, crafted for those who live with intention.' }}</div>
+      {%- if section.settings.cta_url != blank -%}
+        <a class="btn btn--primary btn--large" href="{{ section.settings.cta_url }}">
+          {{ section.settings.cta_label | default: 'Discover the Set' | escape }}
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Product 3D",
+  "tag": "section",
+  "class": "section-featured-product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Featured product"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Flagship Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading (if no product selected)",
+      "default": "The Black Signature Ritual Set"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description (if no product selected)",
+      "default": "A curated collection of premium smoking accessories, crafted for those who live with intention."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label",
+      "default": "Discover the Set"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product 3D"
+    }
+  ]
+}
+{% endschema %}

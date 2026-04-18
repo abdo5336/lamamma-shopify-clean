@@ -1,0 +1,139 @@
+<section class="brand-story" id="brand-story-{{ section.id }}">
+  <div class="brand-story__inner">
+    <div class="brand-story__visual">
+      {%- if section.settings.image != blank -%}
+        <img
+          class="brand-story__image"
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          loading="lazy"
+          width="900"
+        >
+      {%- else -%}
+        <div class="brand-story__image-placeholder">
+          <svg class="brand-story__crest" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 10 L180 50 L180 140 C180 185 100 230 100 230 C100 230 20 185 20 140 L20 50 Z" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <text x="100" y="125" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="38" font-weight="500" fill="#c9a84c" letter-spacing="4">LMS</text>
+          </svg>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.image_caption != blank -%}
+        <p class="brand-story__caption">{{ section.settings.image_caption | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="brand-story__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="brand-story__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="brand-story__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      <div class="brand-story__pillars">
+        {%- for block in section.blocks -%}
+          <div class="brand-pillar" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              <span class="brand-pillar__icon">{{ block.settings.icon }}</span>
+            {%- endif -%}
+            <h4 class="brand-pillar__title">{{ block.settings.title | escape }}</h4>
+            <p class="brand-pillar__text">{{ block.settings.text | escape }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+        <a class="btn btn--outline" href="{{ section.settings.cta_url }}">{{ section.settings.cta_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "tag": "section",
+  "class": "section-brand-story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Heritage"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Born from Moroccan Tradition.<br>Refined for the Modern World.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Story text",
+      "default": "<p>La Mamma's Signature was born at the crossroads of ancient Moroccan craftsmanship and contemporary luxury. Each piece in our collection is a marriage of material and meaning — designed not merely to be used, but to be owned, displayed, and passed on.</p><p>We believe that every ritual deserves an object worthy of it.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Story image"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Image caption",
+      "default": "Handcrafted in Morocco"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Brand pillar",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+          "default": "✦"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Craftsmanship"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Every detail considered, every material premium."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story",
+      "blocks": [
+        { "type": "pillar", "settings": { "icon": "✦", "title": "Heritage", "text": "Rooted in Moroccan tradition, elevated to global luxury." } },
+        { "type": "pillar", "settings": { "icon": "◈", "title": "Craftsmanship", "text": "Premium materials. Meticulous construction. Zero compromise." } },
+        { "type": "pillar", "settings": { "icon": "◇", "title": "Collectible", "text": "Limited runs. Numbered sets. Objects that hold their value." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

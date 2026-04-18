@@ -1,0 +1,60 @@
+<section class="search-page" id="search-page">
+  <div class="container">
+    <header class="search-page__header">
+      <h1 class="search-page__title">Search</h1>
+      {%- form 'search', class: 'search-page__form' -%}
+        <div class="search-page__input-wrap">
+          <input
+            class="search-page__input"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="Search our collection..."
+            aria-label="Search"
+          >
+          <button class="search-page__submit" type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
+      {%- endform -%}
+    </header>
+
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 -%}
+        <div class="search-page__no-results">
+          <p>No results found for "<strong>{{ search.terms | escape }}</strong>".</p>
+          <p>Try a different search term or browse our collections below.</p>
+          <a class="btn btn--outline" href="{{ routes.all_products_collection_url }}">Shop All Products</a>
+        </div>
+      {%- else -%}
+        <p class="search-page__count">{{ search.results_count }} results for "{{ search.terms | escape }}"</p>
+        <div class="search-page__results">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {%- render 'product-card', product: item, show_badge: true -%}
+            {%- else -%}
+              <article class="search-result">
+                <a class="search-result__link" href="{{ item.url }}">
+                  <h3 class="search-result__title">{{ item.title | escape }}</h3>
+                  {%- if item.description != blank -%}
+                    <p class="search-result__desc">{{ item.description | strip_html | truncate: 150 }}</p>
+                  {%- endif -%}
+                </a>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search Page",
+  "tag": "section",
+  "class": "section-search"
+}
+{% endschema %}

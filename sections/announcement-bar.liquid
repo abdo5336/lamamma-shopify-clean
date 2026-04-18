@@ -1,0 +1,38 @@
+{%- if section.settings.show_announcement -%}
+<div class="announcement-bar" role="region" aria-label="Announcement">
+  <div class="announcement-bar__inner">
+    {%- if section.settings.announcement_link != blank -%}
+      <a class="announcement-bar__link" href="{{ section.settings.announcement_link }}">
+        {{ section.settings.announcement_text | escape }}
+      </a>
+    {%- else -%}
+      <p class="announcement-bar__text">{{ section.settings.announcement_text | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "default": true,
+      "label": "Show announcement"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "default": "Free shipping on orders over 500 MAD — Limited signature sets available",
+      "label": "Announcement text"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
+    }
+  ]
+}
+{% endschema %}

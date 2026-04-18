@@ -1,0 +1,55 @@
+<section class="blog-page" id="blog-page">
+  <div class="container">
+    <header class="blog-page__header">
+      <h1 class="blog-page__title">{{ blog.title }}</h1>
+    </header>
+
+    {%- paginate blog.articles by 9 -%}
+      <div class="blog-page__grid">
+        {%- for article in blog.articles -%}
+          <article class="article-card">
+            <a class="article-card__link" href="{{ article.url }}">
+              <div class="article-card__media">
+                {%- if article.image -%}
+                  <img class="article-card__image" src="{{ article.image | image_url: width: 700 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="700">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'article-card__placeholder' }}
+                {%- endif -%}
+              </div>
+              <div class="article-card__content">
+                <div class="article-card__meta">
+                  {%- if article.tags.size > 0 -%}<span class="article-card__tag">{{ article.tags | first }}</span>{%- endif -%}
+                  <time class="article-card__date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: "%B %d, %Y" }}</time>
+                </div>
+                <h3 class="article-card__title">{{ article.title | escape }}</h3>
+                <p class="article-card__excerpt">{{ article.excerpt | default: article.content | strip_html | truncate: 120 }}</p>
+                <span class="article-card__read-more">Read More &rarr;</span>
+              </div>
+            </a>
+          </article>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" role="navigation" aria-label="Blog pagination">
+          {%- if paginate.previous -%}<a class="pagination__btn" href="{{ paginate.previous.url }}">&larr; Previous</a>{%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a class="pagination__page" href="{{ part.url }}">{{ part.title }}</a>
+            {%- else -%}
+              <span class="pagination__page{% if part.title == paginate.current_page %} pagination__page--current{% endif %}">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}<a class="pagination__btn" href="{{ paginate.next.url }}">Next &rarr;</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Posts",
+  "tag": "section",
+  "class": "section-main-blog"
+}
+{% endschema %}

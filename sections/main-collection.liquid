@@ -1,0 +1,104 @@
+<section class="collection-page" id="collection-page">
+  <div class="collection-page__header">
+    <div class="container">
+      {%- if collection.image -%}
+        <div class="collection-page__hero">
+          <img
+            class="collection-page__hero-image"
+            src="{{ collection.image | image_url: width: 1600 }}"
+            alt="{{ collection.image.alt | default: collection.title | escape }}"
+            loading="eager"
+            width="1600"
+          >
+          <div class="collection-page__hero-overlay"></div>
+          <div class="collection-page__hero-content">
+            <h1 class="collection-page__title">{{ collection.title }}</h1>
+            {%- if collection.description != blank -%}
+              <div class="collection-page__description rte">{{ collection.description }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- else -%}
+        <h1 class="collection-page__title collection-page__title--no-hero">{{ collection.title }}</h1>
+        {%- if collection.description != blank -%}
+          <div class="collection-page__description rte">{{ collection.description }}</div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="collection-page__body">
+    <div class="container">
+      <div class="collection-page__toolbar">
+        <p class="collection-page__count">{{ collection.products_count }} products</p>
+        <div class="collection-page__sort">
+          <label for="sort-by" class="visually-hidden">Sort by</label>
+          <select id="sort-by" class="collection-page__sort-select" onchange="window.location = '{{ collection.url }}?sort_by=' + this.value">
+            {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+            <option value="manual"{% if sort_by == 'manual' %} selected{% endif %}>Featured</option>
+            <option value="best-selling"{% if sort_by == 'best-selling' %} selected{% endif %}>Best Selling</option>
+            <option value="title-ascending"{% if sort_by == 'title-ascending' %} selected{% endif %}>A–Z</option>
+            <option value="title-descending"{% if sort_by == 'title-descending' %} selected{% endif %}>Z–A</option>
+            <option value="price-ascending"{% if sort_by == 'price-ascending' %} selected{% endif %}>Price: Low–High</option>
+            <option value="price-descending"{% if sort_by == 'price-descending' %} selected{% endif %}>Price: High–Low</option>
+            <option value="created-descending"{% if sort_by == 'created-descending' %} selected{% endif %}>Newest</option>
+          </select>
+        </div>
+      </div>
+
+      {%- if collection.products.size == 0 -%}
+        <div class="collection-page__empty">
+          <p>No products found in this collection.</p>
+          <a class="btn btn--outline" href="{{ routes.all_products_collection_url }}">Browse All Products</a>
+        </div>
+      {%- else -%}
+        <div class="collection-page__grid">
+          {%- for product in collection.products -%}
+            {%- render 'product-card', product: product, show_badge: true -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" role="navigation" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a class="pagination__btn" href="{{ paginate.previous.url }}">&larr; Previous</a>
+            {%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a class="pagination__page" href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}
+                {%- if part.title == paginate.current_page -%}
+                  <span class="pagination__page pagination__page--current" aria-current="page">{{ part.title }}</span>
+                {%- else -%}
+                  <span class="pagination__ellipsis">{{ part.title }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}
+              <a class="pagination__btn" href="{{ paginate.next.url }}">Next &rarr;</a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "tag": "section",
+  "class": "section-main-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 12,
+      "label": "Products per page"
+    }
+  ]
+}
+{% endschema %}

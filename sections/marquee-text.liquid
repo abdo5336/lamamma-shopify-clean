@@ -1,0 +1,105 @@
+<section class="marquee-section" id="marquee-{{ section.id }}">
+  <div class="marquee-section__track-wrap">
+    {%- for row in (1..section.settings.rows) -%}
+      {%- assign direction = 'left' -%}
+      {%- if row == 2 -%}{%- assign direction = 'right' -%}{%- endif -%}
+      {%- if row == 4 -%}{%- assign direction = 'right' -%}{%- endif -%}
+      <div class="marquee-track marquee-track--{{ direction }}" aria-hidden="true">
+        <div class="marquee-track__inner">
+          {%- for i in (1..4) -%}
+            {%- case row -%}
+              {%- when 1 -%}
+                <span>LA MAMMA'S SIGNATURE</span>
+                <span class="marquee-dot">✦</span>
+                <span>LMS</span>
+                <span class="marquee-dot">✦</span>
+                <span>RITUAL SET</span>
+                <span class="marquee-dot">✦</span>
+                <span>HERITAGE</span>
+                <span class="marquee-dot">✦</span>
+              {%- when 2 -%}
+                <span>TRAYS</span>
+                <span class="marquee-dot">—</span>
+                <span>GRINDERS</span>
+                <span class="marquee-dot">—</span>
+                <span>LIGHTERS</span>
+                <span class="marquee-dot">—</span>
+                <span>BUNDLES</span>
+                <span class="marquee-dot">—</span>
+                <span>POUCHES</span>
+                <span class="marquee-dot">—</span>
+              {%- when 3 -%}
+                <span>SIGNATURE</span>
+                <span class="marquee-dot">✦</span>
+                <span>MOROCCO</span>
+                <span class="marquee-dot">✦</span>
+                <span>COLLECTIBLE</span>
+                <span class="marquee-dot">✦</span>
+                <span>LUXURY</span>
+                <span class="marquee-dot">✦</span>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+        <div class="marquee-track__inner" aria-hidden="true">
+          {%- for i in (1..4) -%}
+            {%- case row -%}
+              {%- when 1 -%}
+                <span>LA MAMMA'S SIGNATURE</span>
+                <span class="marquee-dot">✦</span>
+                <span>LMS</span>
+                <span class="marquee-dot">✦</span>
+                <span>RITUAL SET</span>
+                <span class="marquee-dot">✦</span>
+                <span>HERITAGE</span>
+                <span class="marquee-dot">✦</span>
+              {%- when 2 -%}
+                <span>TRAYS</span>
+                <span class="marquee-dot">—</span>
+                <span>GRINDERS</span>
+                <span class="marquee-dot">—</span>
+                <span>LIGHTERS</span>
+                <span class="marquee-dot">—</span>
+                <span>BUNDLES</span>
+                <span class="marquee-dot">—</span>
+                <span>POUCHES</span>
+                <span class="marquee-dot">—</span>
+              {%- when 3 -%}
+                <span>SIGNATURE</span>
+                <span class="marquee-dot">✦</span>
+                <span>MOROCCO</span>
+                <span class="marquee-dot">✦</span>
+                <span>COLLECTIBLE</span>
+                <span class="marquee-dot">✦</span>
+                <span>LUXURY</span>
+                <span class="marquee-dot">✦</span>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee Text",
+  "tag": "section",
+  "class": "section-marquee",
+  "settings": [
+    {
+      "type": "range",
+      "id": "rows",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3,
+      "label": "Number of rows"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Text"
+    }
+  ]
+}
+{% endschema %}
